@@ -1,4 +1,6 @@
 #
-class profile_template (
+#
+#
+class profile_gluster (
 ) {
 }
