@@ -1,1 +1,8 @@
 ---
+profile_gluster::data_path: '/var/lib/gluster'
+profile_gluster::data_device: '/dev/vdb'
+profile_gluster::pool: "%{::environment}"
+profile_gluster::release: '9.3'
+profile_gluster::version: 'LATEST'
+profile_gluster::volumes: {}
+profile_gluster::backup: true
