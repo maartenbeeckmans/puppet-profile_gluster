@@ -7,6 +7,6 @@ profile_gluster::version: 'LATEST'
 profile_gluster::volumes: {}
 profile_gluster::backup: true
 
-profile_gluster::repo::location: 'https://download.gluster.org/pub/gluster/glusterfs/9/LATEST/Debian/buster/amd64/apt',
+profile_gluster::repo::location: 'https://download.gluster.org/pub/gluster/glusterfs/9/LATEST/Debian/buster/amd64/apt'
 profile_gluster::repo::apt_key_id: 'F9C958A3AEE0D2184FAD1CBD43607F0DC2F8238C'
 profile_gluster::repo::apt_key_source: 'https://download.gluster.org/pub/gluster/glusterfs/9/rsa.pub'
