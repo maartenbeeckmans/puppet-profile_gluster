@@ -15,10 +15,11 @@ class profile_gluster (
     device => $data_device,
     mkdir  => true,
   }
+  -> class { 'profile_gluster::repo': }
   -> class { 'gluster':
     server  => true,
     client  => true,
-    repo    => true,
+    repo    => false,
     pool    => $pool,
     release => $release,
     version => $version,

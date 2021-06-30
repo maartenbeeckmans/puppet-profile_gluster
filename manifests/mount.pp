@@ -7,7 +7,10 @@ define profile_gluster::mount (
   Stdlib::AbsolutePath $dir         = $title,
 ) {
   if ! defined (Class['gluster::client']) {
-    include ::gluster::client
+    class { 'profile_gluster::repo': }
+    -> class { 'gluster::client':
+      repo => false,
+    }
   }
 
   if ! defined ( File[$dir] ) {
