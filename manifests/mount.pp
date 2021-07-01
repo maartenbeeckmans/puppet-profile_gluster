@@ -6,14 +6,22 @@ define profile_gluster::mount (
   String               $volume_name,
   Stdlib::AbsolutePath $dir         = $title,
 ) {
-  if ! defined (Class['gluster::client']) {
-    class { 'profile_gluster::repo': }
-    -> class { 'gluster::client':
-      repo => false,
+  if ! defined (Class['gluster::client']) and ! defined (Class['gluster::install']) {
+    include profile_gluster::repo
+
+    class { 'gluster::client':
+      repo    => false,
+      require => Class['profile_gluster::repo'],
     }
   }
 
   if ! defined ( File[$dir] ) {
+    exec { $dir:
+      path    => $::path,
+      command => "mkdir -p ${dir}",
+      unless  => "test -d ${dir}",
+    }
+
     file { $dir:
       ensure => directory,
       owner  => root,
