@@ -9,6 +9,9 @@ class profile_gluster (
   String               $version,
   Hash                 $volumes,
   Boolean              $backup,
+  String               $sd_service_name,
+  Array[String]        $sd_service_tags,
+  Boolean              $manage_sd_service = lookup('manage_sd_service', Boolean, first, true),
 ) {
 
   profile_base::mount{ $data_path:
@@ -51,5 +54,18 @@ class profile_gluster (
 
   if $backup {
     include profile_gluster::backup
+  }
+
+  if $manage_sd_service {
+    consul::service { $sd_service_name:
+      checks => [
+        {
+          tcp      => "${facts[networking][ip]}:24007",
+          interval => '10s',
+        }
+      ],
+      port   => 24007,
+      tags   => $sd_service_tags,
+    }
   }
 }
